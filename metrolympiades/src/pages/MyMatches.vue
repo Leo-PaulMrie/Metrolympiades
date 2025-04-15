@@ -1,5 +1,5 @@
 <script setup>
-/*import { ref } from "vue";
+import { ref, computed } from "vue";/*
 import AppPost from "@/components/AppPost.vue";
 import PostForm from "@/components/PostForm.vue";
 import { useUserData } from "@/composables/useUserData";
@@ -27,17 +27,17 @@ function handleDelete(postId) {
 */
 
 
-/*const matches = ref([]);
+const matches = ref([]);
 const loading = ref(false);
-const teamName = "Team Alpha";*/
+const teamName = "Team Alpha";
 
-/*const teamMatches = computed(() =>
+const teamMatches = computed(() =>
   matches.value.filter(
     (match) => match.team1 === teamName || match.team2 === teamName
   )
-);*/
+);
 
-/*function fetchMatchesResults() {
+function fetchMatchesResults() {
   loading.value = true;
   fetch("http://localhost:3000/matches/me")
     .then((response) => response.json())
@@ -47,7 +47,7 @@ const teamName = "Team Alpha";*/
     });
 }
 
-fetchMatchesResults();*/
+fetchMatchesResults();
 
 </script>
 
@@ -71,6 +71,6 @@ fetchMatchesResults();*/
 
   <button>Ajouter un match</button>
 
-  <!--<p v-for="match in teamMatches">match.id</p>-->
+  <p v-for="match in teamMatches">match.id</p>
 
 </template>
