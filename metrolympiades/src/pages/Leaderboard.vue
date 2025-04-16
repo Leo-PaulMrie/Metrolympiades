@@ -22,7 +22,10 @@ fetchLeaderboard();
 
 <template>
 
-    <p v-if="loading"> Chargement ... </p>
+    <div v-if="loading" class="loader-container">
+        <div class="spinner"></div>
+        <p>Chargement du classement...</p>
+    </div>
 
     <div v-if="!loading" class="leaderboard">
         <h1> Classement général </h1>
