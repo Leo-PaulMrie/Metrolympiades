@@ -1,4 +1,5 @@
 <script setup>
+import MyMatchesCard from "@/components/MyMatchesCard.vue";
 import { ref, computed } from "vue";/*
 import AppPost from "@/components/AppPost.vue";
 import PostForm from "@/components/PostForm.vue";
@@ -67,10 +68,49 @@ fetchMatchesResults();
     @delete="handleDelete"
   /> -->
 
-  <h1>Mes Matchs</h1>
+  <div class="title">
+    <h1>Mes Matchs</h1>
+    <button>Ajouter un match</button>
+  </div>
+  
 
-  <button>Ajouter un match</button>
+  <!--<p v-for="match in teamMatches">match.id</p>-->
 
-  <p v-for="match in teamMatches">match.id</p>
+  <div class="cards">
+    <MyMatchesCard />
+  </div>
+  
+
 
 </template>
+
+
+<style scoped>
+
+h1{
+  color: black;
+  font-weight: bold;
+  margin-right: 7em;
+}
+
+button{
+  background-color: black;
+  color: white;
+  border-radius: 0.75em;
+  padding-inline: 0.5em;
+  padding-block: 0em;
+  font-size: 1em;
+}
+
+.title{
+  display: flex;
+  padding: 2em;
+}
+
+.cards{
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+}
+
+</style>
