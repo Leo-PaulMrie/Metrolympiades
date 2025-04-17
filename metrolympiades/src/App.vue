@@ -141,6 +141,7 @@ table {
 }
 
 
+
 .error-message {
   color: red;
   margin-bottom: 10px;
@@ -151,7 +152,7 @@ table {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #00000028;
+  min-height: 100vh;
   padding: 20px;
 }
 
@@ -160,11 +161,16 @@ table {
   max-width: 420px;
   padding: 35px;
   border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   background-color: #f9f9f9;
   font-family: "Segoe UI", sans-serif;
   box-sizing: border-box;
   margin: auto; 
+}
+
+.form-container:hover {
+  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
 }
 
 
@@ -227,7 +233,7 @@ input:focus {
 }
 
 button[type="submit"] {
-  margin-top: 20px;
+  margin: 20px auto 0 auto; 
   padding: 14px;
   background-color: #007bff;
   color: white;
@@ -237,7 +243,9 @@ button[type="submit"] {
   cursor: pointer;
   font-weight: 500;
   transition: background-color 0.3s ease;
+  display: block; 
 }
+
 
 button[type="submit"]:hover {
   background-color: #0056b3;
