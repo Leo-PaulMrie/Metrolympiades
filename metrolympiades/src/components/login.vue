@@ -16,7 +16,7 @@ const isLoading = ref(false);
 function login() {
   isLoading.value = true;
 
-  fetch("https://posts-crud-api.vercel.app/login", {
+  fetch("http://localhost:3000/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -70,7 +70,7 @@ function login() {
       <button type="submit" :disabled="!isFormValid || isLoading" :class="{ loading: isLoading }">
         Connexion
       </button>
-     <router-link to="/register" class="login_link">Je n'ai pas encore de compte</router-link>
+     <router-link to="login" @onclik="login()" class="login_link"> Pas encore de compte? <a href=""> Je m'inscris</a></router-link>
     </form>
   </template>
   
@@ -89,5 +89,6 @@ function login() {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 1rem;
+  padding: 0.2em;
 }
 </style>
