@@ -1,5 +1,5 @@
 <script setup>
-  import { TrophyIcon, UserGroupIcon, AdjustmentsHorizontalIcon, ArrowRightOnRectangleIcon } from "@heroicons/vue/24/outline"
+  import { TrophyIcon, UserGroupIcon, AdjustmentsHorizontalIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from "@heroicons/vue/24/outline"
   /*import { useUserData } from "@/composables/useUserData";
 
   const { user } = useUserData();
@@ -19,6 +19,10 @@
     </div>
     <div class="menus">
       <div class="menu-item">
+        <ArrowRightOnRectangleIcon class="icon" />
+        <a>Se connecter</a>
+      </div>
+      <div class="menu-item">
         <TrophyIcon class="icon" />
         <a>Classement général</a>
       </div>
@@ -31,7 +35,7 @@
         <a>Mes matchs</a>
       </div>
       <div class="menu-item">
-        <ArrowRightOnRectangleIcon class="icon" />
+        <ArrowLeftOnRectangleIcon class="icon" />
         <a>Se déconnecter</a>
       </div>
     </div>
