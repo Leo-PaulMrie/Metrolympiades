@@ -14,6 +14,9 @@ const isFormValid = computed(() => {
 const isLoading = ref(false);
 
 function login() {
+
+  console.log("dans login");
+
   isLoading.value = true;
 
   fetch("http://localhost:3000/auth/login", {
@@ -34,7 +37,7 @@ function login() {
     })
     .then((data) => {
       localStorage.setItem("user", JSON.stringify(data));
-      router.push("/");
+      router.push("/leaderboard");
     })
     .catch((err) => {
       console.error(err);
@@ -47,7 +50,7 @@ function login() {
 
 
 <template>
-    <form class="login_link">
+    <form class="login_link" @submit.prevent="login">
       <h1>Se connecter</h1>
       <input
         type="email"
@@ -70,7 +73,7 @@ function login() {
       <button type="submit" :disabled="!isFormValid || isLoading" :class="{ loading: isLoading }">
         Connexion
       </button>
-     <router-link to="login" @onclik="login()" class="login_link"> Pas encore de compte? <a href=""> Je m'inscris</a></router-link>
+     <!--<router-link to="/register" class="login_link">Je n'ai pas encore de compte</router-link>-->
     </form>
   </template>
   
