@@ -1,11 +1,14 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { Eye, EyeOff } from 'lucide-vue-next';
+
 
 const router = useRouter();
 
 const email = ref("");
 const password = ref("");
+const showPassword = ref(false);
 
 const isFormValid = computed(() => {
   return email.value.trim() && password.value.trim();
@@ -64,15 +67,29 @@ function login() {
             v-model="email"
           placeholder="Email"
           />
-          <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="current-password"
-            required
-            v-model="password"
-            placeholder="Mot de passe"
-          />
+        
+          <div class="password-field">
+            <input
+              :type="showPassword ? 'text' : 'password'"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              required
+              v-model="password"
+              placeholder="Mot de passe"
+            />
+
+            <button
+              type="button"
+                class="hide-icon-btn"
+                @click="showPassword = !showPassword"
+                :aria-label="showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'"
+              >
+                <Eye v-if="!showPassword" size="20" />
+                <EyeOff v-else size="20" />
+            </button>
+        </div>
+
         </div>
         <button type="submit" :disabled="!isFormValid || isLoading" :class="{ loading: isLoading }">
           Connexion
@@ -180,4 +197,34 @@ button[type="submit"]:hover {
   text-decoration: underline;
 }
 
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  padding-right: 44px;
+}
+
+.hide-icon-btn {
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.hide-icon-btn:hover {
+  color: #000;
+  transition: color 0.2s ease-in-out;
+}
 </style>
