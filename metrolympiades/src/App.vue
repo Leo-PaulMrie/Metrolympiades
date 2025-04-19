@@ -1,12 +1,11 @@
 <script setup>
-import MyMatches from './pages/MyMatches.vue'
 </script>
 
 <template>
   <div class="layout">
     <!--<AppNavbar/>-->
     <div class="page-content">
-      <MyMatches />
+      <RouterView />
     </div>
   </div>
     
@@ -26,3 +25,5 @@ import MyMatches from './pages/MyMatches.vue'
   }
 
 </style>
+
+
