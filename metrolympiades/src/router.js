@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
+import Leaderboard from './pages/Leaderboard.vue';
 
 const routes = [
   {
@@ -22,7 +23,13 @@ const routes = [
     path: "/register",
     name: "register",
     component: RegisterPage
+  },
+  {
+    path:"/",
+    name:"leaderboard",
+    component: Leaderboard
   }
+  
 ];
 
 const router = createRouter({
