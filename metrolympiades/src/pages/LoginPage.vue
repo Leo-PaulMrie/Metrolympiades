@@ -50,35 +50,71 @@ function login() {
 
 
 <template>
-    <form class="login_link" @submit.prevent="login">
-      <h1>Se connecter</h1>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        autocomplete="email"
-        required
-        v-model="email"
-       placeholder="Email"
-      />
-      <input
-        type="password"
-        id="password"
-        name="password"
-        autocomplete="current-password"
-        required
-        v-model="password"
-        placeholder="Mot de passe"
-      />
-      <button type="submit" :disabled="!isFormValid || isLoading" :class="{ loading: isLoading }">
-        Connexion
-      </button>
-     <!--<router-link to="/register" class="login_link">Je n'ai pas encore de compte</router-link>-->
-    </form>
+  <div class="page-wrapper">
+    <div class="form-container">
+      <form class="login_link" @submit.prevent="login">
+        <h1>Se connecter</h1>
+        <div class="form-fields">
+          <input
+            type="email"
+            id="email"
+            name="email"
+            autocomplete="email"
+            required
+            v-model="email"
+          placeholder="Email"
+          />
+          <input
+            type="password"
+            id="password"
+            name="password"
+            autocomplete="current-password"
+            required
+            v-model="password"
+            placeholder="Mot de passe"
+          />
+        </div>
+        <button type="submit" :disabled="!isFormValid || isLoading" :class="{ loading: isLoading }">
+          Connexion
+        </button>
+        <div class="register-link">
+          <p> Pas encore de compte? </p>
+          <router-link to="/register" class="login_link"> S'inscrire</router-link>
+        </div>
+        
+      </form>
+    </div>
+  </div>
   </template>
   
 
 <style scoped>
+button[type="submit"] {
+  margin: 20px auto 0 auto; 
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 17px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  display: block; 
+}
+
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+#email, #password {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  padding: 0.2em;
+}
 .login_link {
   display: block;
   text-align: center;
@@ -87,11 +123,61 @@ function login() {
   font-weight: 500;
   font-size: 0.9rem;
 }
-#email, #password {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 1rem;
-  padding: 0.2em;
+
+
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
 }
+
+.form-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background-color: #f9f9f9;
+  font-family: "Segoe UI", sans-serif;
+  box-sizing: border-box;
+  margin: auto; 
+}
+
+.form-container:hover {
+  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.25);
+  transition: box-shadow 0.3s ease;
+}
+
+.form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.register-link {
+  margin-top: 24px;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6em;
+  color: #333;
+}
+
+.register-link p {
+  margin: 0;
+}
+
+.register-link a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
+}
+
 </style>
