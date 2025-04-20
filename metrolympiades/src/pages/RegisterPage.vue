@@ -46,8 +46,8 @@ function register(){
 
   <div class="page-wrapper">
     <div class="form-container">
-      <h1>Inscription</h1>
       <form @submit.prevent="register">
+        <h1>Inscription</h1>
         <div v-if="errorMessage" class="error-message">
           {{ errorMessage }}
         </div>
@@ -80,7 +80,7 @@ function register(){
 
         <div class="login-link">
           <p>Déjà inscrit ?</p>
-          <a href="">Me connecter</a>
+          <router-link to="/login" class="login_link"> Me connecter </router-link>
         </div>
       </form>
     </div>
@@ -97,7 +97,7 @@ function register(){
 */
 
 html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+ h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -173,13 +173,16 @@ table {
   transition: box-shadow 0.3s ease;
 }
 
-
+.form-container h1{
+  text-align: center;
+}
+/*
 h1 {
   margin-bottom: 24px;
   font-size: 30px;
   font-weight: 600;
   color: #222;
-}
+}*/
 
 .form-fields {
   display: flex;

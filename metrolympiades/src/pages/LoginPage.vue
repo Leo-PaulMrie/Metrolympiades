@@ -9,18 +9,17 @@ const router = useRouter();
 const email = ref("");
 const password = ref("");
 const showPassword = ref(false);
+const errorMessage = ref(""); //
 
-const isFormValid = computed(() => {
-  return email.value.trim() && password.value.trim();
-});
 
 const isLoading = ref(false);
 
 function login() {
-
-  console.log("dans login");
-
   isLoading.value = true;
+  errorMessage.value = "";
+
+
+
 
   fetch("http://localhost:3000/auth/login", {
     method: "POST",
@@ -34,6 +33,7 @@ function login() {
   })
     .then((res) => {
       if (!res.ok) {
+        errorMessage.value = "Email ou mot de passe incorrect"; 
         throw new Error("Email ou mot de passe incorrect");
       }
       return res.json();
@@ -57,6 +57,10 @@ function login() {
     <div class="form-container">
       <form class="login_link" @submit.prevent="login">
         <h1>Se connecter</h1>
+       <div v-if="errorMessage" class="error-message">
+          {{ errorMessage }}
+        </div>
+
         <div class="form-fields">
           <input
             type="email"
@@ -91,12 +95,12 @@ function login() {
         </div>
 
         </div>
-        <button type="submit" :disabled="!isFormValid || isLoading" :class="{ loading: isLoading }">
+        <button type="submit" :class="{ loading: isLoading }">
           Connexion
         </button>
         <div class="register-link">
           <p> Pas encore de compte? </p>
-          <router-link to="/register" class="login_link"> S'inscrire</router-link>
+          <router-link to="/register" class="login_link"> Je m'inscris </router-link>
         </div>
         
       </form>
@@ -227,4 +231,11 @@ button[type="submit"]:hover {
   color: #000;
   transition: color 0.2s ease-in-out;
 }
+
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 </style>
