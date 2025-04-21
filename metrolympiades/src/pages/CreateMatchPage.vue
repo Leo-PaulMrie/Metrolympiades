@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 const teams = ref([]); 
@@ -10,6 +10,16 @@ const selectedActivity = ref('');
 const startTime = ref('');
 const myScore = ref(0);
 const opponentScore = ref(0);
+
+const minDate = computed(() => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0'); 
+  const day = String(now.getDate()).padStart(2, '0'); 
+  const hours = String(now.getHours()).padStart(2, '0'); 
+  const minutes = String(now.getMinutes()).padStart(2, '0'); 
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+});
 
 const router = useRouter();
 
@@ -26,11 +36,10 @@ function retrieveOpponents() {
   })
   .then((response) => response.json())
   .then((data) => {
-    localStorage.setItem("userData", JSON.stringify(data));
 
     teams.value = data
       .filter(team => team.name.trim() !== "") 
-      .map((team) => team.name); 
+      //.map((team) => team.name); 
 
     console.log("response : ", data);
   })
@@ -51,11 +60,10 @@ function retrieveActivities() {
   })
   .then((response) => response.json())
   .then((data) => {
-    localStorage.setItem("userData", JSON.stringify(data));
 
     activities.value = data
       .filter(activity => activity.name.trim() !== "") 
-      .map((activity) => activity.name); 
+      // .map((activity) => activity.name); 
 
     console.log("response : ", data);
   })
@@ -65,17 +73,63 @@ function retrieveActivities() {
   });
 }
 
-function submitMatch() {
-  console.log('Création du match :', {
-    opponent: selectedOpponent.value,
-    activity: selectedActivity.value,
-    startTime: startTime.value,
-    myScore: myScore.value,
-    opponentScore: opponentScore.value
-  });
+function createMatch() {
+  errorMessage.value = "";
 
-  router.push('/match/recap');
+  if (!selectedOpponent.value || !selectedActivity.value || !startTime.value) {
+    errorMessage.value = "Tous les champs doivent être remplis.";
+    return;
+  }
+  
+  if (new Date(startTime.value) < new Date()) {
+    errorMessage.value = "La date et l'heure de début ne peuvent pas être dans le passé.";
+    return;
+  }
+
+  // const token = localStorage.getItem("jwt_token");
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const token = userData?.token;
+
+  if (!token) {
+    errorMessage.value = "Utilisateur non authentifié.";
+    return;
+  }
+
+  const matchData = {
+    team2Id: selectedOpponent.value.id,
+    activityId: selectedActivity.value.id,
+    startedAt: new Date(startTime.value).toISOString(),
+    team1Score: myScore.value,
+    team2Score: opponentScore.value,
+  };
+
+  fetch("http://localhost:3000/matches", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(matchData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Erreur lors de la création du match");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Match créé :", data.message);
+      
+      // Then push to another page or just stay here
+
+    })
+    .catch((error) => {
+      console.error("Erreur lors de la création du match :", error);
+      errorMessage.value = "Impossible de créer le match. Veuillez réessayer.";
+    });
+    
 }
+
 
 function sanitizeScore(type) {
   if (type === 'my') {
@@ -93,16 +147,18 @@ retrieveOpponents();
 <template>
   <div class="page-wrapper">
     <div class="form-container">
-      <button type="submit" class="submit-btn">Enregistrer</button>
 
       <h1>Créer un nouveau match</h1>
 
-      <form @submit.prevent="submitMatch" class="form-fields">
+      <p class="error-message" v-if="errorMessage">{{ errorMessage }}</p>
+
+
+      <form @submit.prevent="createMatch" class="form-fields">
         <label>
           Adversaire
           <select v-model="selectedOpponent">
             <option disabled value="">Sélectionne une équipe</option>
-            <option v-for="team in teams" :key="team" :value="team">{{ team }}</option>
+            <option v-for="team in teams" :key="team" :value="team">{{ team.name }}</option>
           </select>
         </label>
 
@@ -110,13 +166,14 @@ retrieveOpponents();
           Activité
           <select v-model="selectedActivity">
             <option disabled value="">Sélectionne une activité</option>
-            <option v-for="activity in activities" :key="activity" :value="activity">{{ activity }}</option>
+            <option v-for="activity in activities" :key="activity" :value="activity">{{ activity.name }}</option>
           </select>
         </label>
 
         <label>
           Heure de début
-          <input type="time" v-model="startTime" />
+          <!-- <input type="time" v-model="startTime" /> -->
+          <input type="datetime-local" v-model="startTime" />
         </label>
 
         <label>
@@ -137,7 +194,8 @@ retrieveOpponents();
         <label>
           Score - Équipe adverse
           <div class="score-control">
-            <button type="button" @click="opponentScore > 0 && opponentScore--">▼</button><input
+            <button type="button" @click="opponentScore > 0 && opponentScore--">▼</button>
+            <input
                 type="number"
                 min="0"
                 v-model.number="opponentScore"
@@ -147,6 +205,8 @@ retrieveOpponents();
             <button type="button" @click="opponentScore++">▲</button>
           </div>
         </label>
+        
+        <button type="submit" class="submit-btn">Enregistrer</button>
       </form>
     </div>
   </div>
@@ -309,32 +369,6 @@ input[type="number"]::-webkit-inner-spin-button {
   font-weight: bold;
 }
 
-.score-control {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-  position: relative; 
-}
-
-.score-control button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  font-size: 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px; 
-  height: 32px; 
-}
-
-
-
 .score-control button:hover {
   background-color: #0056b3;
 }
@@ -342,6 +376,42 @@ input[type="number"]::-webkit-inner-spin-button {
 .score-input {
   width: 60px;
   text-align: center;
+}
+
+.score-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  position: relative;
+  width: 100%; 
+}
+
+.score-control button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  flex-shrink: 0; 
+  position: relative; 
+  z-index: 2; 
+}
+
+.score-control input {
+  width: 60px;
+  text-align: center;
+  position: relative;
+  z-index: 1; 
 }
 
 </style>
