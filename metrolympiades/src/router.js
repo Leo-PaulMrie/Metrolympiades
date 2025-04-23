@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import MyMatches from './pages/MyMatches.vue';
+import Leaderboard from './pages/Leaderboard.vue';
 
 const routes = [
   {
@@ -31,7 +32,13 @@ const routes = [
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path:"/",
+    name:"leaderboard",
+    component: Leaderboard
   }
+  
 ];
 
 const router = createRouter({
