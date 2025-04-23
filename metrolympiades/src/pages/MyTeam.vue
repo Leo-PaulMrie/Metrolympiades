@@ -43,16 +43,22 @@ onMounted(()=>{
 </script>
 
 <template>
-  <div class="container">
-    <div class="header">
-      <h1>Mon équipe</h1>
+    
+    <div v-if="loading" class="loader-container">
+        <div class="spinner"></div>
+        <p>Chargement de mon équipe...</p>
     </div>
 
-    <div class="form-group">
-      <label>Nom de l'équipe</label>
-      <input v-model="teamName" placeholder="Nom de l'équipe" />
-    </div>
+    <div class="container" v-if="!loading"> 
+        <div class="header">
+            <h1>Mon équipe</h1>
+        </div>
 
-    <TeamModification :initialmembers="teamMembers" :teamNaming="teamName" />
-  </div>
+        <div class="form-group">
+            <label>Nom de l'équipe</label>
+            <input v-model="teamName" placeholder="Nom de l'équipe" />
+        </div>
+
+        <TeamModification :initialmembers="teamMembers" :teamNaming="teamName" />
+    </div>
 </template>
