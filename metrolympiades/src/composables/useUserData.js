@@ -8,9 +8,8 @@
 // Si l'utilisateur n'est pas connecté, les valeurs renvoyées seront null.
 export function useUserData() {
   const localStorageData = JSON.parse(localStorage.getItem("user"));
-
   return {
-    user: localStorageData?.user,
+    user: localStorageData,
     token: localStorageData?.token
   }
 }

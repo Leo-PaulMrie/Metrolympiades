@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import Leaderboard from './pages/Leaderboard.vue';
+import MyTeam from './pages/MyTeam.vue';
 
 const routes = [
   {
@@ -28,6 +29,14 @@ const routes = [
     path:"/",
     name:"leaderboard",
     component: Leaderboard
+  },
+  {
+    path:"/myTeam",
+    name:"myTeam",
+    component: MyTeam,
+    meta: {
+      requiresAuth: true
+    }
   }
   
 ];
