@@ -1,30 +1,24 @@
 <script setup>
 
-  import AppNavbar from "@/components/AppNavbar.vue";
-  /*import { computed } from "vue";
-  import { useRoute } from "vue-router";
-
-  const route = useRoute();
-
-  const showNavbar = computed(() => {
-    return !["/login", "/register"].includes(route.path);
-  });*/
+import AppNavbar from './components/AppNavbar.vue';
+import Leaderboard from './pages/Leaderboard.vue';
 
 </script>
 
-<template >
-
+<template>
   <div class="layout">
     <AppNavbar/>
-    <div class="page-content"></div>
+    <div class="page-content">
+      <RouterView />
+    </div>
   </div>
-
+    
 </template>
 
 <style scoped>
 /* v-if="showNavbar" */
   .layout {
-    display: flex; /* mettre navbar à gauche */
+    display: flex;
     min-height: 100vh;
   }
 
@@ -35,3 +29,5 @@
   }
 
 </style>
+
+
