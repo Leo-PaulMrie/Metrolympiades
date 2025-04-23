@@ -40,7 +40,7 @@ function login() {
     })
     .then((data) => {
       localStorage.setItem("user", JSON.stringify(data));
-      router.push("/leaderboard");
+      router.push("/");
     })
     .catch((err) => {
       console.error(err);

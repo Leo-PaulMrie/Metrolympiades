@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
+import MyMatches from './pages/MyMatches.vue';
+import Leaderboard from './pages/Leaderboard.vue';
 
 const routes = [
   {
@@ -22,7 +24,21 @@ const routes = [
     path: "/register",
     name: "register",
     component: RegisterPage
+  },
+  {
+    path: "/games",
+    name: "games",
+    component: MyMatches,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path:"/",
+    name:"leaderboard",
+    component: Leaderboard
   }
+  
 ];
 
 const router = createRouter({
