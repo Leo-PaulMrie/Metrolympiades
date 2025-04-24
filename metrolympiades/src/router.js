@@ -54,7 +54,7 @@ const router = createRouter({
 router.beforeEach((to, _, next) => {
   // Si la route nécessite une authentification, on vérifie si l'utilisateur est connecté.
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('userData'));
     if (!user) {
       // Si l'utilisateur n'est pas connecté, on redirige vers la page de connexion.
       next({ name: 'login' });
