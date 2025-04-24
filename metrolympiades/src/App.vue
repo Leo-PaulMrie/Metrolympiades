@@ -1,3 +1,4 @@
+
 <script setup>
 
 import Leaderboard from './pages/Leaderboard.vue';
@@ -28,5 +29,4 @@ import Leaderboard from './pages/Leaderboard.vue';
   }
 
 </style>
-
 

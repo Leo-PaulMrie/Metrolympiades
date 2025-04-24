@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { Eye, EyeOff } from 'lucide-vue-next';
+import { useRouter } from "vue-router";
+const router = useRouter()
+
 
 const username = ref("");
 const teamName = ref("");
@@ -35,8 +38,9 @@ function register(){
   .then((response)=>response.json())
   .then((data) => 
   {
-    localStorage.setItem("userData", JSON.stringify(data))
-    console.log("response : ", data)
+    localStorage.setItem("userData", JSON.stringify(data));
+    console.log("response : ", data);
+    router.push("/match/create-match");
   })
 }
 
@@ -97,7 +101,7 @@ function register(){
 */
 
 html, body, div, span, applet, object, iframe,
- h2, h3, h4, h5, h6, p, blockquote, pre,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
@@ -182,6 +186,7 @@ h1 {
   font-size: 30px;
   font-weight: 600;
   color: #222;
+<<<<<<< HEAD
 }*/
 
 .form-fields {

@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
+
 import LoginPage from './pages/LoginPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import MyMatches from './pages/MyMatches.vue';
 import Leaderboard from './pages/Leaderboard.vue';
+import CreateMatchPage from './pages/CreateMatchPage.vue';
 
 const routes = [
   {
@@ -37,7 +39,12 @@ const routes = [
     path:"/",
     name:"leaderboard",
     component: Leaderboard
-  }
+  },
+  {
+      path: "/match/create-match",
+      name: "createMatch",
+      component: CreateMatchPage,
+  },
   
 ];
 
@@ -45,6 +52,12 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 })
+/*
+const router = createRouter({
+    routes,
+    history: createWebHistory(),
+});
+*/
 
 // La méthode beforeEach() est appelée avant chaque navigation.
 // Elle prend comme argument une fonction callback qui reçoit trois arguments : to, from et next.
@@ -68,3 +81,5 @@ router.beforeEach((to, _, next) => {
 });
 
 export default router;
+
+ 
