@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { Eye, EyeOff } from 'lucide-vue-next';
+import { useRouter } from "vue-router";
+const router = useRouter()
+
 
 const username = ref("");
 const teamName = ref("");
@@ -35,8 +38,9 @@ function register(){
   .then((response)=>response.json())
   .then((data) => 
   {
-    localStorage.setItem("userData", JSON.stringify(data))
-    console.log("response : ", data)
+    localStorage.setItem("userData", JSON.stringify(data));
+    console.log("response : ", data);
+    router.push("/match/create-match");
   })
 }
 
@@ -46,8 +50,8 @@ function register(){
 
   <div class="page-wrapper">
     <div class="form-container">
-      <h1>Inscription</h1>
       <form @submit.prevent="register">
+        <h1>Inscription</h1>
         <div v-if="errorMessage" class="error-message">
           {{ errorMessage }}
         </div>
@@ -80,7 +84,7 @@ function register(){
 
         <div class="login-link">
           <p>Déjà inscrit ?</p>
-          <a href="">Me connecter</a>
+          <router-link to="/login" class="login_link"> Me connecter </router-link>
         </div>
       </form>
     </div>
@@ -173,13 +177,17 @@ table {
   transition: box-shadow 0.3s ease;
 }
 
-
+.form-container h1{
+  text-align: center;
+}
+/*
 h1 {
   margin-bottom: 24px;
   font-size: 30px;
   font-weight: 600;
   color: #222;
-}
+<<<<<<< HEAD
+}*/
 
 .form-fields {
   display: flex;

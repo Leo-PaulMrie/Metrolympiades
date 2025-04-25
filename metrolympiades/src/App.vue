@@ -1,3 +1,4 @@
+
 <script setup>
 
 import AppNavbar from './components/AppNavbar.vue';
@@ -34,5 +35,4 @@ import Leaderboard from './pages/Leaderboard.vue';
   }
 
 </style>
-
 
