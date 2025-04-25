@@ -31,7 +31,7 @@
         <TrophyIcon class="icon" />
         <a>Classement général</a>
       </div>
-      <div class="menu-item" v-if="user" @click="router.push('/')">
+      <div class="menu-item" v-if="user" @click="router.push('/myTeam')">
         <UserGroupIcon class="icon" />
         <a>Mon équipe</a>
       </div>

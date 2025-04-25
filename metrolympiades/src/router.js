@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage.vue';
 import MyMatches from './pages/MyMatches.vue';
 import Leaderboard from './pages/Leaderboard.vue';
 import CreateMatchPage from './pages/CreateMatchPage.vue';
+import MyTeam from './pages/MyTeam.vue';
 
 const routes = [
   {
@@ -35,6 +36,14 @@ const routes = [
       name: "createMatch",
       component: CreateMatchPage,
   },
+  {
+    path:"/myTeam",
+    name:"myTeam",
+    component: MyTeam,
+    meta: {
+      requiresAuth: true
+    }
+  }
   
 ];
 

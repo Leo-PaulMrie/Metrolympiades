@@ -12,7 +12,6 @@ function fetchLeaderboard(){
     .then((data) =>{
         leaderboards.value = data;
         loading.value = false;
-        console.log(leaderboards.value)
     });
 }
 
