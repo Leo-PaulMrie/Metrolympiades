@@ -6,16 +6,6 @@ import Leaderboard from './pages/Leaderboard.vue';
 
 const routes = [
   {
-   /* path: '/',
-    name: 'home',
-    component: HomePage,
-    // La propriété meta permet de définir des métadonnées pour une route.
-    // On peut y stocker des informations supplémentaires, comme ici l'information que la route nécessite une authentification.
-    meta: {
-      requiresAuth: true
-    }
-  },
-  {*/
     path: "/login",
     name: "login",
     component: LoginPage

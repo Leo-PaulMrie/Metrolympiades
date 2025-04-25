@@ -6,11 +6,19 @@
 // Ce composable permet de récupérer les données de l'utilisateur stockées dans le local storage.
 // Il renvoie l'objet user et le token de l'utilisateur.
 // Si l'utilisateur n'est pas connecté, les valeurs renvoyées seront null.
+import { ref, computed } from "vue";
+
+const localStorageData = ref(JSON.parse(localStorage.getItem("user")));
+
 export function useUserData() {
-  const localStorageData = JSON.parse(localStorage.getItem("user"));
+  const user = computed(() => localStorageData.value);
+
+  function refreshUser() {
+    localStorageData.value = JSON.parse(localStorage.getItem("user"));
+  }
 
   return {
-    user: localStorageData?.user,
-    token: localStorageData?.token
-  }
+    user,
+    refreshUser,
+  };
 }

@@ -1,9 +1,10 @@
 <script setup>
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
+import { useUserData } from "@/composables/useUserData";
 
+const { refreshUser } = useUserData();
 const router = useRouter();
-
 const email = ref("");
 const password = ref("");
 
@@ -37,6 +38,7 @@ function login() {
     })
     .then((data) => {
       localStorage.setItem("user", JSON.stringify(data));
+      refreshUser();
       router.push("/");
     })
     .catch((err) => {
@@ -59,7 +61,7 @@ function login() {
         autocomplete="email"
         required
         v-model="email"
-       placeholder="Email"
+        placeholder="Email"
       />
       <input
         type="password"

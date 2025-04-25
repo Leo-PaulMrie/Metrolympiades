@@ -6,6 +6,7 @@ import Leaderboard from './pages/Leaderboard.vue';
 </script>
 
 <template>
+
   <div class="layout">
     <AppNavbar/>
     <div class="page-content">
@@ -16,10 +17,14 @@ import Leaderboard from './pages/Leaderboard.vue';
 </template>
 
 <style scoped>
-/* v-if="showNavbar" */
+
+  template{
+    height: 100%;
+  }
+
   .layout {
     display: flex;
-    min-height: 100vh;
+    height: 100%;
   }
 
   .page-content {

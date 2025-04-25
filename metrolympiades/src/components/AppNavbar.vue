@@ -1,13 +1,18 @@
 <script setup>
   import { TrophyIcon, UserGroupIcon, AdjustmentsHorizontalIcon, ArrowRightOnRectangleIcon, ArrowLeftOnRectangleIcon } from "@heroicons/vue/24/outline"
-  /*import { useUserData } from "@/composables/useUserData";
+  import { useRouter } from "vue-router";
+  import { useUserData } from "@/composables/useUserData";
 
-  const { user } = useUserData();
+  const { user, refreshUser } = useUserData();
 
   function logout() {
     localStorage.removeItem("user");
-    location.reload();
-  }*/
+    refreshUser();
+    router.push("/login");
+  }
+
+  const router = useRouter();
+  
 </script>
 
 <template>
@@ -15,26 +20,26 @@
 <header class="navbar">
     <div class="navbar_user">
       <b class="title">Metrolympiades</b>
-      <b class="team"> user.teamName </b>
+      <b class="team" v-if="user"> {{ user.team.name }} </b>
     </div>
     <div class="menus">
-      <div class="menu-item">
+      <div class="menu-item" v-if="!user" @click="router.push('/login')">
         <ArrowRightOnRectangleIcon class="icon" />
         <a>Se connecter</a>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" @click="router.push('/')">
         <TrophyIcon class="icon" />
         <a>Classement général</a>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" v-if="user" @click="router.push('/')">
         <UserGroupIcon class="icon" />
         <a>Mon équipe</a>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" v-if="user" @click="router.push('/games')">
         <AdjustmentsHorizontalIcon class="icon" />
         <a>Mes matchs</a>
       </div>
-      <div class="menu-item">
+      <div class="menu-item" v-if="user" @click="logout()">
         <ArrowLeftOnRectangleIcon class="icon" />
         <a>Se déconnecter</a>
       </div>
@@ -44,8 +49,6 @@
 </template>
 
 <style scoped>
-/*
-v-if="user"*/
 
 .navbar {
   width: 25em;
@@ -62,6 +65,8 @@ v-if="user"*/
 
 .navbar_user{
   margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -71,6 +76,7 @@ v-if="user"*/
 
 .team {
   font-size: 1.5rem;
+  margin: 1em;
 }
 
 .menus {
