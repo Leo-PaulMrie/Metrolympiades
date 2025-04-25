@@ -119,7 +119,7 @@ function createMatch() {
     })
     .then((data) => {
       console.log("Match créé :", data.message);
-      
+      router.push("/games")
       // Then push to another page or just stay here
 
     })

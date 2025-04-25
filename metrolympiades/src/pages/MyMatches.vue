@@ -2,9 +2,10 @@
   import MyMatchesCard from "@/components/MyMatchesCard.vue";
   import { ref, computed } from "vue";
   import { useUserData } from "@/composables/useUserData";
-
+  import {useRouter} from "vue-router";
   const { user, token } = useUserData();
 
+  const router = useRouter();
   const matches = ref([]);
   const loading = ref(false);
   const teamMatches = computed(() =>
@@ -22,19 +23,23 @@
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(user.value)
         matches.value = data;
         loading.value = false;
       });
   }
 
-  fetchMatchesResults();
+function ajouterMatch(){ 
+  router.push("/match/create-match");
+}
+
+fetchMatchesResults();
+
 </script>
 
 <template>
   <div class="title">
     <h1>Mes Matchs</h1>
-    <button>Ajouter un match</button>
+    <button @click="ajouterMatch" style="cursor:pointer" >Ajouter un match</button>
   </div>
 
   <div class="cards">
@@ -51,31 +56,47 @@
 
 
 <style scoped>
-  h1{
-    color: black;
-    font-weight: bold;
-    margin-right: 7em;
-  }
-
-  button{
-    background-color: black;
-    color: white;
-    border-radius: 0.75em;
-    padding-inline: 1em;
-    padding-block: 1em;
-    font-size: 1em;
-  }
-
-  .title{
-    display: flex;
+  .title {
+  display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2em;
-  }
+  max-width: 800px;
+  margin: 0 auto;
+}
 
-  .cards{
-    display: flex;
-    justify-content: center;
-    padding: 1em;
-  }
+h1 {
+  color: black;
+  font-weight: bold;
+  margin: 0;
+}
+
+button {
+  background-color: black;
+  color: white;
+  border-radius: 0.75em;
+  padding-inline: 1em;
+  padding-block: 1em;
+  font-size: 1em;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #333;
+  cursor: pointer;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  align-items: center;
+  padding: 1em;
+}
+
+.cards p {
+  font-style: italic;
+  color: #666;
+}
 </style>
