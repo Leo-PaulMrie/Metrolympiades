@@ -12,6 +12,7 @@ const localStorageData = ref(JSON.parse(localStorage.getItem("user")));
 
 export function useUserData() {
   const user = computed(() => localStorageData.value);
+  const token = computed(() => localStorageData.value.token);
 
   function refreshUser() {
     localStorageData.value = JSON.parse(localStorage.getItem("user"));
@@ -19,6 +20,7 @@ export function useUserData() {
 
   return {
     user,
+    token,
     refreshUser,
   };
 }

@@ -7,10 +7,9 @@
 
   const matches = ref([]);
   const loading = ref(false);
-
   const teamMatches = computed(() =>
     matches.value.filter(
-      (match) => match.team1 === user.teamName || match.team2 === user.teamName
+      (match) => match.team1 === user.value.team.name || match.team2 === user.value.team.name
     )
   );
 
@@ -18,11 +17,12 @@
     loading.value = true;
     fetch("http://localhost:3000/matches/me", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token.value}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(user.value)
         matches.value = data;
         loading.value = false;
       });
