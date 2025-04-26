@@ -35,6 +35,9 @@ const routes = [
       path: "/match/create-match",
       name: "createMatch",
       component: CreateMatchPage,
+      meta: {
+        requiresAuth: true
+      }
   },
   {
     path:"/myTeam",

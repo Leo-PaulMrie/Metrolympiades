@@ -39,8 +39,7 @@ function register(){
   .then((data) => 
   {
     localStorage.setItem("userData", JSON.stringify(data));
-    console.log("response : ", data);
-    router.push("/match/create-match");
+    router.push("/login");
   })
 }
 
@@ -59,8 +58,6 @@ function register(){
           <input v-model="username" placeholder="Nom d'utilisateur">
           <input v-model="teamName" placeholder="Nom d'équipe">
           <input v-model="mail" placeholder="Email">
-          <!-- <input v-model="password" placeholder="Mot de passe" type="password"> -->
-
           <div class="password-field">
             <input
               :type="showPassword ? 'text' : 'password'"
@@ -282,6 +279,12 @@ button[type="submit"]:hover {
 .login-link a:hover {
   text-decoration: underline;
 }
+
+h1{
+    font-weight: bold;
+    font-size: 1.75em;
+    margin-bottom: 1em;
+  }
 
 </style>
 

@@ -38,10 +38,8 @@ function retrieveOpponents() {
   .then((data) => {
 
     teams.value = data
-      .filter(team => team.name.trim() !== "") 
-      //.map((team) => team.name); 
+      .filter(team => team.name.trim() !== "")
 
-    console.log("response : ", data);
   })
   .catch((error) => {
     console.error("Erreur lors de la récupération des équipes : ", error);
@@ -62,10 +60,7 @@ function retrieveActivities() {
   .then((data) => {
 
     activities.value = data
-      .filter(activity => activity.name.trim() !== "") 
-      // .map((activity) => activity.name); 
-
-    console.log("response : ", data);
+      .filter(activity => activity.name.trim() !== "")
   })
   .catch((error) => {
     console.error("Erreur lors de la récupération des activités : ", error);
@@ -118,10 +113,7 @@ function createMatch() {
       return response.json();
     })
     .then((data) => {
-      console.log("Match créé :", data.message);
       router.push("/games")
-      // Then push to another page or just stay here
-
     })
     .catch((error) => {
       console.error("Erreur lors de la création du match :", error);

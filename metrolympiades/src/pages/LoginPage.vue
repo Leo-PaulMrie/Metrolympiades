@@ -10,7 +10,7 @@ const router = useRouter();
 const email = ref("");
 const password = ref("");
 const showPassword = ref(false);
-const errorMessage = ref(""); //
+const errorMessage = ref("");
 
 
 const isLoading = ref(false);
@@ -69,7 +69,7 @@ function login() {
             autocomplete="email"
             required
             v-model="email"
-          placeholder="Email"
+            placeholder="Email"
           />
         
           <div class="password-field">
