@@ -6,9 +6,9 @@
   const { user, refreshUser } = useUserData();
 
   function logout() {
+    router.push("/login");
     localStorage.removeItem("user");
     refreshUser();
-    router.push("/login");
   }
 
   const router = useRouter();
@@ -31,7 +31,7 @@
         <TrophyIcon class="icon" />
         <a>Classement général</a>
       </div>
-      <div class="menu-item" v-if="user" @click="router.push('/myTeam')">
+      <div class="menu-item" v-if="user" @click="router.push('/team')">
         <UserGroupIcon class="icon" />
         <a>Mon équipe</a>
       </div>

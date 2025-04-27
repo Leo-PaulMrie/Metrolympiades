@@ -39,7 +39,7 @@ function login() {
     .then((data) => {
       localStorage.setItem("user", JSON.stringify(data));
       refreshUser();
-      router.push("/");
+      router.push("/leaderboard");
     })
     .catch((err) => {
       console.error(err);
@@ -104,9 +104,15 @@ function login() {
         </div>
         
       </form>
+
+      <div v-if="isLoading" class="loader-container">
+        <div class="spinner"></div>
+        <p>Chargement ...</p>
+      </div>
+
     </div>
   </div>
-  </template>
+</template>
   
 
 <style scoped>

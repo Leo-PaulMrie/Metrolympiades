@@ -8,6 +8,10 @@
   const router = useRouter();
   const matches = ref([]);
   const loading = ref(false);
+
+  
+  console.log("VAL");
+      console.log(user.value.team.name);
   const teamMatches = computed(() =>
     matches.value.filter(
       (match) => match.team1 === user.value.team.name || match.team2 === user.value.team.name
@@ -28,8 +32,8 @@
       });
   }
 
-function ajouterMatch(){ 
-  router.push("/match/create-match");
+function addMatch(){ 
+  router.push("/game");
 }
 
 fetchMatchesResults();
@@ -39,11 +43,14 @@ fetchMatchesResults();
 <template>
   <div class="title">
     <h1>Mes Matchs</h1>
-    <button @click="ajouterMatch" style="cursor:pointer" >Ajouter un match</button>
+    <button @click="addMatch" style="cursor:pointer" >Ajouter un match</button>
   </div>
 
   <div class="cards">
-    <p v-if="loading && !teamMatches.length">Chargement...</p>
+    <div v-if="loading" class="loader-container">
+        <div class="spinner"></div>
+        <p>Chargement des matchs...</p>
+    </div>
     <p v-else-if="!teamMatches.length">Aucun match pour le moment.</p>
 
     <MyMatchesCard

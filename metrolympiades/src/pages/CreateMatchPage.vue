@@ -1,15 +1,16 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserData } from "@/composables/useUserData";
 
 const teams = ref([]); 
 const activities = ref([]);
-
 const selectedOpponent = ref('');
 const selectedActivity = ref('');
 const startTime = ref('');
 const myScore = ref(0);
 const opponentScore = ref(0);
+const { refreshUser } = useUserData();
 
 const minDate = computed(() => {
   const now = new Date();
@@ -69,6 +70,7 @@ function retrieveActivities() {
 }
 
 function createMatch() {
+  
   errorMessage.value = "";
 
   if (!selectedOpponent.value || !selectedActivity.value || !startTime.value) {
@@ -76,8 +78,8 @@ function createMatch() {
     return;
   }
   
-  if (new Date(startTime.value) < new Date()) {
-    errorMessage.value = "La date et l'heure de début ne peuvent pas être dans le passé.";
+  if (new Date(startTime.value) > new Date()) {
+    errorMessage.value = "La date et l'heure de début ne peuvent pas être dans le futur. Terminez le match avant de valider les scores.";
     return;
   }
 
@@ -113,6 +115,8 @@ function createMatch() {
       return response.json();
     })
     .then((data) => {
+      console.log("Match créé :", data.message);
+      refreshUser();
       router.push("/games")
     })
     .catch((error) => {

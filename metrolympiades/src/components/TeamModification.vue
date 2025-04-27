@@ -5,7 +5,7 @@ import { useUserData } from "@/composables/useUserData";
 import router from "@/router";
 import {useRouter} from "vue-router";
 
-const { user, token } = useUserData();
+const { user, token, refreshUser } = useUserData();
 const routerNav = useRouter();
 
 const props = defineProps({
@@ -43,6 +43,7 @@ function save(){
     .then((response)=>response.json())
     .then((data) => 
     {
+        refreshUser();
         routerNav.push('/')
     })
 }
