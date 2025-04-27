@@ -1,7 +1,7 @@
 <script setup>
+import { useUserData } from '@/composables/useUserData';
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserData } from "@/composables/useUserData";
 
 const teams = ref([]); 
 const activities = ref([]);
@@ -10,7 +10,11 @@ const selectedActivity = ref('');
 const startTime = ref('');
 const myScore = ref(0);
 const opponentScore = ref(0);
+
 const { refreshUser } = useUserData();
+
+const userData = JSON.parse(localStorage.getItem("user"));
+const token = userData.token;
 
 const minDate = computed(() => {
   const now = new Date();
@@ -23,7 +27,6 @@ const minDate = computed(() => {
 });
 
 const router = useRouter();
-
 const errorMessage = ref("");
 
 function retrieveOpponents() {
@@ -70,7 +73,6 @@ function retrieveActivities() {
 }
 
 function createMatch() {
-  
   errorMessage.value = "";
 
   if (!selectedOpponent.value || !selectedActivity.value || !startTime.value) {
@@ -83,15 +85,10 @@ function createMatch() {
     return;
   }
 
-  // const token = localStorage.getItem("jwt_token");
-  const userData = JSON.parse(localStorage.getItem("userData"));
-  const token = userData?.token;
-
   if (!token) {
     errorMessage.value = "Utilisateur non authentifié.";
     return;
   }
-  console.log("Heure : " + formatLocalDateTime(new Date(startTime.value)));
 
   const matchData = {
     team2Id: selectedOpponent.value.id,
@@ -116,7 +113,7 @@ function createMatch() {
       return response.json();
     })
     .then((data) => {
-      console.log("Match créé :", data.message);
+      //console.log("Match créé :", data.message);
       refreshUser();
       router.push("/games")
     })

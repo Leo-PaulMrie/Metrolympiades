@@ -9,9 +9,6 @@
   const matches = ref([]);
   const loading = ref(false);
 
-  
-  console.log("VAL");
-      console.log(user.value.team.name);
   const teamMatches = computed(() =>
     matches.value.filter(
       (match) => match.team1 === user.value.team.name || match.team2 === user.value.team.name

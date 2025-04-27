@@ -39,7 +39,7 @@ function register(){
   .then((data) => 
   {
     localStorage.setItem("userData", JSON.stringify(data));
-    router.push("/leaderboard");
+    router.push("/login");
   })
 }
 
