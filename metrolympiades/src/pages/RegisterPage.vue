@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { Eye, EyeOff } from 'lucide-vue-next';
 import { useRouter } from "vue-router";
+import { useUserData } from "@/composables/useUserData";
 const router = useRouter()
 
 
@@ -14,6 +15,10 @@ const password = ref("");
 const showPassword = ref(false);
 
 const errorMessage = ref(""); 
+
+
+const isLoading = ref(false);
+const { refreshUser } = useUserData();
 
 function isValidEmail(mail) 
 {
@@ -54,8 +59,43 @@ function register(){
   .then((data) => 
   {
     localStorage.setItem("user", JSON.stringify(data));
+    connexion();
     router.push("/leaderboard");
   })
+}
+
+function connexion(){
+  isLoading.value = true;
+  errorMessage.value = "";
+
+  fetch("http://localhost:3000/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: mail.value,
+      password: password.value,
+    }),
+  })
+    .then((res) => {
+      if (!res.ok) {
+        errorMessage.value = "Email ou mot de passe incorrect"; 
+        throw new Error("Email ou mot de passe incorrect");
+      }
+      return res.json();
+    })
+    .then((data) => {
+      localStorage.setItem("user", JSON.stringify(data));
+      refreshUser();
+      router.push("/leaderboard");
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
 }
 
 </script>
@@ -100,6 +140,10 @@ function register(){
         </div>
       </form>
     </div>
+  </div>
+  <div v-if="isLoading" class="loader-container">
+    <div class="spinner"></div>
+    <p>Chargement ...</p>
   </div>
   
 
