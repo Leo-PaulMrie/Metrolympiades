@@ -15,14 +15,29 @@ const showPassword = ref(false);
 
 const errorMessage = ref(""); 
 
-function register(){
+function isValidEmail(mail) 
+{
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail);
+}
 
+function register(){
   errorMessage.value = "";
 
   if(!username.value.trim() || !teamName.value.trim() || !mail.value.trim() || !password.value.trim()){
     errorMessage.value = "Veuillez remplir tous les champs.";
     return;
   }
+
+  if (!isValidEmail(mail.value.trim())) {
+    errorMessage.value = "Veuillez entrer une adresse email valide.";
+    return;
+  }
+
+  if (password.value.length < 6) {
+    errorMessage.value = "Le mot de passe doit contenir au moins 6 caractères.";
+    return;
+  }
+
   fetch("http://localhost:3000/auth/register", {
     method: "POST",
     headers: {
@@ -38,7 +53,7 @@ function register(){
   .then((response)=>response.json())
   .then((data) => 
   {
-    localStorage.setItem("userData", JSON.stringify(data));
+    localStorage.setItem("user", JSON.stringify(data));
     router.push("/leaderboard");
   })
 }
