@@ -11,7 +11,7 @@
 
   const teamMatches = computed(() =>
     matches.value.filter(
-      (match) => match.team1 === user.value.team.name || match.team2 === user.value.team.name
+      (match) => match.team1 === user.value?.team.name || match.team2 === user.value?.team.name
     )
   );
 

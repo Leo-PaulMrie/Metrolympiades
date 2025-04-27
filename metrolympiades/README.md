@@ -54,8 +54,8 @@ Dans ce projet, nous avons choisi de ne pas intégrer de librairies externes afi
 
 ## 🔥 Bonus
 
-✅ Possibilité de visualiser les détails d'un équipe en cliquant dessus dans le classement
 ✅ Étoile sur le dépôt GitHub metrolympiades-api
+✅ Score de 94/100 sur l'accessibilité
 
 ## 👷 Membres du groupe
 
