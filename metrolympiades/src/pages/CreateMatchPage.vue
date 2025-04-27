@@ -91,11 +91,12 @@ function createMatch() {
     errorMessage.value = "Utilisateur non authentifié.";
     return;
   }
+  console.log("Heure : " + formatLocalDateTime(new Date(startTime.value)));
 
   const matchData = {
     team2Id: selectedOpponent.value.id,
     activityId: selectedActivity.value.id,
-    startedAt: new Date(startTime.value).toISOString(),
+    startedAt: formatLocalDateTime(new Date(startTime.value)),
     team1Score: myScore.value,
     team2Score: opponentScore.value,
   };
@@ -124,6 +125,16 @@ function createMatch() {
       errorMessage.value = "Impossible de créer le match. Veuillez réessayer.";
     });
     
+}
+
+function formatLocalDateTime(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 }
 
 
